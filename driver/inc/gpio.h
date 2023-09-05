@@ -14,7 +14,7 @@ See the GNU General Public License for more details.
 #define _GPIO_H
 
 /*Basic definitions*/
-#define GPIO_BASE_ADDR        0x40020000
+#define GPIO_BASE_ADDR        0x58020000
 
 #define GPIOA                 0x00000000
 #define GPIOB                 0x00000400
@@ -43,6 +43,19 @@ See the GNU General Public License for more details.
 #define GPIO_PIN_14           0x00004000
 #define GPIO_PIN_15           0x00008000
 
+#define GPIO_PIN_ALL          0x0000FFFF
+
+#define GPIO_MODE_INPUT       0x00
+#define GPIO_MODE_OUTPUT_PP   0x01
+#define GPIO_MODE_OUTPUT_OD   0x11
+#define GPIO_MODE_AF          0x02
+#define GPIO_MODE_ANALOG      0x03
+
+#define GPIO_SPEED_LOW        0
+#define GPIO_SPEED_MEDIUM     1
+#define GPIO_SPEED_HIGH       2
+#define GPIO_SPEED_VERY_HIGH  3
+
 typedef enum {
     GPIO_HIGH = 0x00,
     GPIO_LOW  = 0x01
@@ -67,12 +80,15 @@ typedef struct {
     unsigned long gpio_mode;
     unsigned long gpio_speed;
     unsigned long gpio_pull;
-    unsigned long gpio_set_af;
 } GPIO_INIT_STRUCT;
 
 /*Return code definitions*/
 #define GPIO_SUCCESS                    0
-#define GPIO_ERROR_INVALID_PARAMETER    1
+#define GPIO_ERROR_INVALID_PINS         1
+#define GPIO_ERROR_INVALID_MODE         2
+#define GPIO_ERROR_INVALID_SPEED        3
+#define GPIO_ERROR_INVALID_PULL         4
+
 
 /*Functions*/
 int gpio_init(GPIO_INIT_STRUCT *gpio_struct);
