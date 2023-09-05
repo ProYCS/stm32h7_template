@@ -19,15 +19,15 @@ ASM_OBJ=$(ASM_SRC:%.s=%.o)
 .PHONY: all clean $(DIR)
 
 all:$(DIR)
-	@echo LINK $(TARGET)
-	@$(CC) $(C_OBJ) $(ASM_OBJ) -T ./link/stm32h755xx_flash_CM7.ld -o $(TARGET).elf  -mthumb -mcpu=cortex-m7 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs -specs=nosys.specs -static -Wl,-cref,-u,Reset_Handler -Wl,-Map=$(TARGET).map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80
-	@echo OBJCOPY $(TARGET).elf  $(TARGET).bin
-	@$(OBJCOPY) $(TARGET).elf  $(TARGET).bin -Obinary 
-	@echo OBJCOPY $(TARGET).elf  $(TARGET).hex
-	@$(OBJCOPY) $(TARGET).elf  $(TARGET).hex -Oihex
+	@echo LINK $(PROJECT)
+	@$(CC) $(C_OBJ) $(ASM_OBJ) -T ./link/stm32h755xx_flash_CM7.ld -o $(PROJECT).elf  -mthumb -mcpu=cortex-m7 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs -specs=nosys.specs -static -Wl,-cref,-u,Reset_Handler -Wl,-Map=$(PROJECT).map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80
+	@echo OBJCOPY $(PROJECT).elf  $(PROJECT).bin
+	@$(OBJCOPY) $(PROJECT).elf  $(PROJECT).bin -Obinary
+	@echo OBJCOPY $(PROJECT).elf  $(PROJECT).hex
+	@$(OBJCOPY) $(PROJECT).elf  $(PROJECT).hex -Oihex
 	
 $(DIR):
-	@make -C $@ DEVICE=$(TAREGT_DEVICE)
+	@make -C $@ DEVICE=$(TAREGT_DEVICE) TOP=$(TOP)
 
 clean:
 	@rm -f $(shell find ./ -name '*.o')

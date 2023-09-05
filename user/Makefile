@@ -2,11 +2,7 @@ CC=arm-none-eabi-gcc
 
 TARGET=user
 
-INC_FLAGS= -I ../core \
-           -I ../lib/inc \
-           -I ../driver/inc \
-           -I ../startup \
-           -I ../user/inc
+include ../config.mk
 
 CFLAGS =  -W -Wall -g -mcpu=cortex-m7 -mthumb -D $(DEVICE) $(INC_FLAGS) -O3 -std=gnu11
 SRC=$(shell find -name '*.c')
@@ -16,5 +12,6 @@ $(TARGET):$(OBJ)
 
 
 $(OBJ):%.o:%.c
-	@$(CC) -c $< $(CFLAGS) -o $@
 	@echo CC $<
+	@$(CC) -c $< $(CFLAGS) -o $@
+
