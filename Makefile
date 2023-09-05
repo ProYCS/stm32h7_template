@@ -1,6 +1,4 @@
-TARGET = template
-TAREGT_DEVICE = STM32H750xx
-
+include config.mk
 
 CC             = arm-none-eabi-gcc           
 AS             = arm-none-eabi-as
@@ -8,12 +6,6 @@ LD             = arm-none-eabi-ld
 OBJCOPY        = arm-none-eabi-objcopy
 
 TOP=$(shell pwd)
-
-INC_FLAGS= -I $(TOP)/core \
-           -I $(TOP)/lib/inc \
-           -I $(TOP)/driver/inc \
-           -I $(TOP)/startup \
-           -I $(TOP)/user
 
 CFLAGS =  -W -Wall -g -mcpu=cortex-m7 -mthumb  $(INC_FLAGS) -O3 -std=gnu11
 ASFLAGS = -W -Wall -g -Wall -mcpu=cortex-m7 -mthumb
