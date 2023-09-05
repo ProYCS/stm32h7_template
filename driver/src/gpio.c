@@ -16,6 +16,7 @@ int gpio_init(GPIO_INIT_STRUCT *gpio_struct)
     unsigned long pins;
     unsigned long mode;
     unsigned long speed;
+    unsigned long pull;
 
     if((gpio_struct->gpio_pins & 0xFFFF0000) != 0)
         return GPIO_ERROR_INVALID_PINS;
@@ -29,15 +30,15 @@ int gpio_init(GPIO_INIT_STRUCT *gpio_struct)
     if(gpio_struct->gpio_pull > 2)
         return GPIO_ERROR_INVALID_PULL;
 
-    pins = gpio_struct->pins;
+    pins = gpio_struct->gpio_pins;
     mode = gpio_struct->gpio_mode;
 
     for(int i = 0; i < 16; i++)
     {
-        if(pins & 0x00000001 == 0x00000001)
+        if((pins & 0x00000001) == 0x00000001)
         {
             
-            if(mode & 0x10 == 0x10)
+            if((mode & 0x10) == 0x10)
             {
                 GPIOx_MODER(gpio_struct->gpio_port) |= (mode & 0x0000000F) << (i*2); 
                 GPIOx_OTYPER(gpio_struct->gpio_port) |= (pins & 0x00000001) << i;
@@ -56,9 +57,9 @@ int gpio_init(GPIO_INIT_STRUCT *gpio_struct)
 
     for(int i = 0; i < 16; i++)
     {
-        if(pins & 0x00000001 == 0x00000001)
+        if((pins & 0x00000001) == 0x00000001)
         {
-            GPIOx_OSPEEDER(gpio_struct->gpio_port) |= speed << (i*2);
+            GPIOx_OSPEEDR(gpio_struct->gpio_port) |= speed << (i*2);
         }
         pins >>= 1;
     }
@@ -68,7 +69,7 @@ int gpio_init(GPIO_INIT_STRUCT *gpio_struct)
 
     for(int i = 0; i < 16; i++)
     {
-        if(pins & 0x00000001 == 0x00000001)
+        if((pins & 0x00000001) == 0x00000001)
         {
             GPIOx_PUPDR(gpio_struct->gpio_port) |= pull << (i*2);
         }
