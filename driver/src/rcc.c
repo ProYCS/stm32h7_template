@@ -9,9 +9,5 @@ even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 See the GNU General Public License for more details.
 
 */
-#include "gpio.h"
+#include "rcc.h"
 
-int gpio_init(GPIO_INIT_STRUCT *gpio_struct)
-{
-    
-}

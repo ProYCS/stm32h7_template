@@ -13,8 +13,7 @@ See the GNU General Public License for more details.
 #ifndef _GPIO_H
 #define _GPIO_H
 
-#include "stm32h7xx_hal.h"
-
+/*Basic definitions*/
 #define GPIO_BASE_ADDR        0x40020000
 
 #define GPIOA                 0x00000000
@@ -44,6 +43,12 @@ See the GNU General Public License for more details.
 #define GPIO_PIN_14           0x00004000
 #define GPIO_PIN_15           0x00008000
 
+typedef enum {
+    GPIO_HIGH = 0x00,
+    GPIO_LOW  = 0x01
+}GPIO_LEVEL;
+
+/*Register definitions*/
 #define GPIOx_MODER(gpiox)    *(unsigned long*)(GPIO_BASE_ADDR + gpiox + 0x00)
 #define GPIOx_OTYPER(gpiox)   *(unsigned long*)(GPIO_BASE_ADDR + gpiox + 0x04)
 #define GPIOx_OSPEEDR(gpiox)  *(unsigned long*)(GPIO_BASE_ADDR + gpiox + 0x08)
@@ -55,16 +60,25 @@ See the GNU General Public License for more details.
 #define GPIOx_AFRL(gpiox)     *(unsigned long*)(GPIO_BASE_ADDR + gpiox + 0x20)
 #define GPIOx_AFRH(gpiox)     *(unsigned long*)(GPIO_BASE_ADDR + gpiox + 0x24)
 
+/*Struct definitions*/
 typedef struct {
     unsigned long gpio_port;
-    unsigned long gpio_pin;
+    unsigned long gpio_pins;
     unsigned long gpio_mode;
     unsigned long gpio_speed;
     unsigned long gpio_pull;
     unsigned long gpio_set_af;
 } GPIO_INIT_STRUCT;
 
+/*Return code definitions*/
+#define GPIO_SUCCESS                    0
+#define GPIO_ERROR_INVALID_PARAMETER    1
 
-void gpio_init(GPIO_INIT_STRUCT *gpio_struct);
+/*Functions*/
+int gpio_init(GPIO_INIT_STRUCT *gpio_struct);
+int gpio_write_pins(unsigned long gpiox,unsigned long gpio_pins,unsigned int gpio_value);
+int gpio_read_pins(unsigned long gpiox,unsigned long gpio_pins,unsigned int *gpio_value);
+int gpio_write_single_pin(unsigned long gpiox,unsigned long gpio_pin,GPIO_LEVEL gpio_level);
+int gpio_read_single_pin(unsigned long gpiox,unsigned long gpio_pin,GPIO_LEVEL *gpio_level);
 
 #endif
