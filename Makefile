@@ -1,4 +1,5 @@
 include config.mk
+include linkertarget.mk
 
 CC             = arm-none-eabi-gcc           
 AS             = arm-none-eabi-as
@@ -20,7 +21,7 @@ ASM_OBJ=$(ASM_SRC:%.s=%.o)
 
 all:$(DIR)
 	@echo LINK $(PROJECT)
-	@$(CC) $(C_OBJ) $(ASM_OBJ) -T ./link/stm32h755xx_flash_CM7.ld -o $(PROJECT).elf  -mthumb -mcpu=cortex-m7 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs -specs=nosys.specs -static -Wl,-cref,-u,Reset_Handler -Wl,-Map=$(PROJECT).map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80
+	@$(CC) $(C_OBJ) $(ASM_OBJ) -T $(LINKER_SCRIPT) -o $(PROJECT).elf  -mthumb -mcpu=cortex-m7 -Wl,--start-group -lc -lm -Wl,--end-group -specs=nano.specs -specs=nosys.specs -static -Wl,-cref,-u,Reset_Handler -Wl,-Map=$(PROJECT).map -Wl,--gc-sections -Wl,--defsym=malloc_getpagesize_P=0x80
 	@echo OBJCOPY $(PROJECT).elf  $(PROJECT).bin
 	@$(OBJCOPY) $(PROJECT).elf  $(PROJECT).bin -Obinary
 	@echo OBJCOPY $(PROJECT).elf  $(PROJECT).hex
