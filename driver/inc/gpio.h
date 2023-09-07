@@ -56,9 +56,13 @@ See the GNU General Public License for more details.
 #define GPIO_SPEED_HIGH       2
 #define GPIO_SPEED_VERY_HIGH  3
 
+#define GPIO_PULL_NOPULL      0
+#define GPIO_PULL_PULLUP      1
+#define GPIO_PULL_PULLDOWN    2
+
 typedef enum {
-    GPIO_HIGH = 0x00,
-    GPIO_LOW  = 0x01
+    GPIO_HIGH = 0x01,
+    GPIO_LOW  = 0x00
 }GPIO_LEVEL;
 
 /*Register definitions*/

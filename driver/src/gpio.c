@@ -78,3 +78,19 @@ int gpio_init(GPIO_INIT_STRUCT *gpio_struct)
 
     return GPIO_SUCCESS;
 }
+
+int gpio_write_pins(unsigned long gpiox,unsigned long gpio_pins,unsigned int gpio_value)
+{
+    GPIOx_ODR(gpiox) = gpio_value & gpio_pins;
+    return GPIO_SUCCESS;
+}
+
+int gpio_write_single_pin(unsigned long gpiox,unsigned long gpio_pin,GPIO_LEVEL gpio_level)
+{
+    if(gpio_level == GPIO_HIGH)
+        GPIOx_BSRR(gpiox) = gpio_pin;
+    else if(gpio_level == GPIO_LOW)
+        GPIOx_BSRR(gpiox) = gpio_pin << 16;
+
+    return GPIO_SUCCESS;
+}
