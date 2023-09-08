@@ -1,5 +1,10 @@
-#include"stm32h7xx_hal.h"
+//#include"stm32h7xx_hal.h"
 #include"gpio.h"
+#include"rcc.h"
+
+#define __PRINT_MACRO(x) #x
+#define PRINT_MARCO(x) #x"=" __PRINT_MACRO(x)
+#pragma message(PRINT_MARCO(GPIOE))
 
 int main(void)
 {
@@ -9,6 +14,7 @@ int main(void)
     gpio_initstruct.gpio_mode = GPIO_MODE_OUTPUT_PP;
     gpio_initstruct.gpio_speed = GPIO_SPEED_HIGH;
     gpio_initstruct.gpio_pull = GPIO_PULL_NOPULL;
+    rcc_gpio_enable(GPIOE);
     gpio_init(&gpio_initstruct);
     while(1)
     {
