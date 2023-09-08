@@ -10,6 +10,7 @@ See the GNU General Public License for more details.
 
 */
 #include "rcc.h"
+#include "gpio.h"
 
 /*Enable HSE clock*/
 int rcc_hse_enable(unsigned char hse_mode)
@@ -34,4 +35,68 @@ int rcc_hse_enable(unsigned char hse_mode)
 int rcc_hse_disable(void)
 {
 
+}
+
+int rcc_gpio_enable(unsigned long gpiox)
+{
+    int result;
+    switch(gpiox)
+    {
+        case GPIOA:RCC_AHB4ENR |= 0x00000001;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOB:RCC_AHB4ENR |= 0x00000002;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOC:RCC_AHB4ENR |= 0x00000004;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOD:RCC_AHB4ENR |= 0x00000008;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOE:RCC_AHB4ENR |= 0x00000010;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOF:RCC_AHB4ENR |= 0x00000020;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOG:RCC_AHB4ENR |= 0x00000040;
+                   result = RCC_SUCCESS;
+                   break;
+        default:result = RCC_ERROR_INVALID_PARAMETER;
+                break
+    }
+    return result;
+}
+
+int rcc_gpio_disable(unsigned long gpiox)
+{
+    int result;
+    switch(gpiox)
+    {
+        case GPIOA:RCC_AHB4ENR &=~ 0x00000001;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOB:RCC_AHB4ENR &=~ 0x00000002;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOC:RCC_AHB4ENR &=~ 0x00000004;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOD:RCC_AHB4ENR &=~ 0x00000008;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOE:RCC_AHB4ENR &=~ 0x00000010;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOF:RCC_AHB4ENR &=~ 0x00000020;
+                   result = RCC_SUCCESS;
+                   break;
+        case GPIOG:RCC_AHB4ENR &=~ 0x00000040;
+                   result = RCC_SUCCESS;
+                   break;
+        default:result = RCC_ERROR_INVALID_PARAMETER;
+                break
+    }
+    return result;
 }

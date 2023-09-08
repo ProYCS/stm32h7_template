@@ -45,9 +45,12 @@ See the GNU General Public License for more details.
 #define RCC_D3CCIPR     *(unsigned long*)(RCC_BASE_ADDR + 0x58)
 #define RCC_CIER        *(unsigned long*)(RCC_BASE_ADDR + 0x60)
 
+#define RCC_AHB4ENR     *(unsigned long*)(RCC_BASE_ADDR + 0x140)
+
 /*Return code definitions*/
 #define RCC_SUCCESS                                  0
-#define RCC_ERROR_HSE_READY                          1
+#define RCC_ERROR_INVALID_PARAMETER                  1
+#define RCC_ERROR_HSE_READY                          2
 
 
 
@@ -62,5 +65,8 @@ int rcc_hse_disable(void);
 int rcc_lse_enable(void);
 int rcc_lse_disable(void);
 int rcc_set_pll_frequency(unsigned long freq);
+
+int rcc_gpio_enable(unsigned long gpiox);
+int rcc_gpio_disable(unsigned long gpiox);
 
 #endif
