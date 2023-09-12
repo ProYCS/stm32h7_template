@@ -4,7 +4,7 @@ TARGET=driver
 
 include ../config.mk
 
-CFLAGS =  -W -Wall -g -mcpu=cortex-m7 -mthumb -D $(DEVICE) $(INC_FLAGS) -O3 -std=gnu11
+CFLAGS =  -W -Wall -g -mcpu=cortex-m7 -mthumb -D $(DEVICE) $(INC_FLAGS) -O1 -std=gnu11
 SRC=$(shell find -name '*.c')
 OBJ=$(SRC:%.c=%.o)
 

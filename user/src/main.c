@@ -6,6 +6,7 @@ void STM32_Clock_Init(unsigned long plln,unsigned long pllm,unsigned long pllp,u
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     RCC_OscInitTypeDef RCC_OscInitStruct;
     MODIFY_REG(PWR->CR3,PWR_CR3_SCUEN, 0);
+
     __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
     while ((PWR->D3CR & (PWR_D3CR_VOSRDY)) != PWR_D3CR_VOSRDY) {}
 
@@ -22,7 +23,7 @@ void STM32_Clock_Init(unsigned long plln,unsigned long pllm,unsigned long pllp,u
     RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
     RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_2;
     ret=HAL_RCC_OscConfig(&RCC_OscInitStruct);
-    if(ret!=HAL_OK) while(1);
+    //if(ret!=HAL_OK) while(1);
 
     RCC_ClkInitStruct.ClockType=(RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_D1PCLK1|RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2|RCC_CLOCKTYPE_D3PCLK1);
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -33,19 +34,28 @@ void STM32_Clock_Init(unsigned long plln,unsigned long pllm,unsigned long pllp,u
     RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
     RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
     ret=HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4);
-    if(ret!=HAL_OK) while(1);
+    //if(ret!=HAL_OK) while(1);
 
     __HAL_RCC_CSI_ENABLE();
     __HAL_RCC_SYSCFG_CLK_ENABLE();
     HAL_EnableCompensationCell();
 }
 
+void delay(void)
+{
+    volatile long i = 10000000;
+    volatile long j;
+    while(i--){
+        j++;
+    }
+}
+
 int main(void)
 {
     GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    STM32_Clock_Init(80,5,2,4);
-    SystemCoreClockUpdate();
+    STM32_Clock_Init(160,5,2,4);
+    //SystemCoreClockUpdate();
     __HAL_RCC_GPIOE_CLK_ENABLE();
 
     HAL_Init();
@@ -58,10 +68,12 @@ int main(void)
     while(1)
     {
         HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
-        HAL_Delay(100);
+        //HAL_Delay(100);
         //for(long i=0;i<100000;i++);
+        delay();
         HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
+        delay();
         //for(long i=0;i<100000;i++);
-        HAL_Delay(100);
+        //HAL_Delay(100);
     }
 }
