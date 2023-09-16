@@ -14,6 +14,17 @@ See the GNU General Public License for more details.
 
 DAC_HandleTypeDef dac1;
 
+void dac_dma_init(void)
+{
+
+}
+
+void dac_tim6_init(void)
+{
+    __HAL_RCC_TIM6_CLK_ENABLE();
+
+}
+
 void dac_init(void)
 {
     DAC_ChannelConfTypeDef dac_config;
@@ -23,5 +34,8 @@ void dac_init(void)
     dac_config.DAC_ConnectOnChipPeripheral = DAC_CHIPCONNECT_DISABLE;
     dac_config.DAC_UserTrimming = DAC_TRIMMING_FACTORY;
 
+
     dac1.Instance = DAC1;
+    HAL_DAC_Init(&dac1);
+    HAL_DAC_ConfigChannel(&dac1,&dac_config,DAC_CHANNEL1);
 }
