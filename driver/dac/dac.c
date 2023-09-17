@@ -14,28 +14,23 @@ See the GNU General Public License for more details.
 
 DAC_HandleTypeDef dac1;
 
-void dac_dma_init(void)
-{
-
-}
-
-void dac_tim6_init(void)
-{
-    __HAL_RCC_TIM6_CLK_ENABLE();
-
-}
-
 void dac_init(void)
 {
-    DAC_ChannelConfTypeDef dac_config;
-    dac_config.DAC_SampleAndHold = DAC_SAMPLEANDHOLD_DISABLE;
-    dac_config.DAC_Trigger = DAC_TRIGGER_T6_TRGO;
-    dac_config.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
-    dac_config.DAC_ConnectOnChipPeripheral = DAC_CHIPCONNECT_DISABLE;
-    dac_config.DAC_UserTrimming = DAC_TRIMMING_FACTORY;
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    __HAL_RCC_DAC12_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    GPIO_InitStruct.Pin = GPIO_PIN_4;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-
+    DAC_ChannelConfTypeDef sConfig = {0};
     dac1.Instance = DAC1;
-    HAL_DAC_Init(&dac1);
-    HAL_DAC_ConfigChannel(&dac1,&dac_config,DAC_CHANNEL1);
+    HAL_DAC_Init(&hdac1);
+    sConfig.DAC_SampleAndHold = DAC_SAMPLEANDHOLD_DISABLE;
+    sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
+    sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+    sConfig.DAC_ConnectOnChipPeripheral = DAC_CHIPCONNECT_DISABLE;
+    sConfig.DAC_UserTrimming = DAC_TRIMMING_FACTORY;
+    HAL_DAC_ConfigChannel(&hdac1, &sConfig, DAC_CHANNEL_1);
 }
