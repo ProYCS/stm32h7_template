@@ -21,7 +21,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_it.h"
 //#include "main.h"
-
+#include "stm32h7xx_hal.h"
 /** @addtogroup STM32H7xx_HAL_Examples
   * @{
   */
@@ -157,7 +157,18 @@ void SysTick_Handler(void)
 {
 }*/
 
+extern TIM_HandleTypeDef htim2;
 
+void TIM2_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM2_IRQn 0 */
+
+  /* USER CODE END TIM2_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim2);
+  /* USER CODE BEGIN TIM2_IRQn 1 */
+
+  /* USER CODE END TIM2_IRQn 1 */
+}
 /**
   * @}
   */ 

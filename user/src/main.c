@@ -1,4 +1,7 @@
 #include"stm32h7xx_hal.h"
+#include"st7735.h"
+#include"dac.h"
+#include"tim.h"
 
 void STM32_Clock_Init(unsigned long plln,unsigned long pllm,unsigned long pllp,unsigned long pllq)
 {
@@ -43,7 +46,7 @@ void STM32_Clock_Init(unsigned long plln,unsigned long pllm,unsigned long pllp,u
 
 void delay(void)
 {
-    volatile long i = 10000000;
+    volatile long i = 10000;
     volatile long j;
     while(i--){
         j++;
@@ -52,6 +55,7 @@ void delay(void)
 
 int main(void)
 {
+    int t=0;
     GPIO_InitTypeDef GPIO_InitStruct = {0};
 
     STM32_Clock_Init(160,5,2,4);
@@ -65,15 +69,54 @@ int main(void)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
     HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+    st7735_init();
+    st7735_fill_color(0x00FF);
+    dac_init();
+    dac_set(256);
+    tim_init();
+    tim_start();
     while(1)
     {
-        HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
+        t++;
+        if(t>256)t=0;
+        //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
         //HAL_Delay(100);
         //for(long i=0;i<100000;i++);
+
+        dac_set(512-t);
         delay();
-        HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
+        //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
+        dac_set(256);
         delay();
+
         //for(long i=0;i<100000;i++);
         //HAL_Delay(100);
+    }
+}
+
+int count = 0;
+int p = 0;
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if(htim->Instance == TIM2)
+    {
+        if(p == 0)
+            p = 1;
+        else
+            p = 0;
+
+        if(p == 0){
+            count++;
+            if(count > 256)
+                count = 0;
+        }
+
+        if(p == 0)
+            HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
+        else
+            HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
+
     }
 }

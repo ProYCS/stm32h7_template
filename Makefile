@@ -13,7 +13,7 @@ ASFLAGS = -W -Wall -g -Wall -mcpu=cortex-m7 -mthumb
 
 C_SRC=$(shell find ./ -name '*.c')  
 C_OBJ=$(C_SRC:%.c=%.o)          
-DIR=lib driver startup user
+DIR=hal_library driver lib startup user
 #ASM_SRC=$(shell find ./ -name '*.s')
 ASM_OBJ=$(ASM_SRC:%.s=%.o)
 

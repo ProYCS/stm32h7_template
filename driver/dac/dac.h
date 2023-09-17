@@ -16,4 +16,7 @@ See the GNU General Public License for more details.
 
 extern DAC_HandleTypeDef dac1;
 
+void dac_init(void);
+void dac_set(unsigned int value);
+
 #endif

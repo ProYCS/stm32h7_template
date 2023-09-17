@@ -1,6 +1,6 @@
 CC=arm-none-eabi-gcc
 
-TARGET=hal_library
+TARGET=lib
 
 include ../config.mk
 

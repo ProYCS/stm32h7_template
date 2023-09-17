@@ -26,11 +26,17 @@ void dac_init(void)
 
     DAC_ChannelConfTypeDef sConfig = {0};
     dac1.Instance = DAC1;
-    HAL_DAC_Init(&hdac1);
+    HAL_DAC_Init(&dac1);
     sConfig.DAC_SampleAndHold = DAC_SAMPLEANDHOLD_DISABLE;
     sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
     sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
     sConfig.DAC_ConnectOnChipPeripheral = DAC_CHIPCONNECT_DISABLE;
     sConfig.DAC_UserTrimming = DAC_TRIMMING_FACTORY;
-    HAL_DAC_ConfigChannel(&hdac1, &sConfig, DAC_CHANNEL_1);
+    HAL_DAC_ConfigChannel(&dac1, &sConfig, DAC_CHANNEL_1);
+}
+
+void dac_set(unsigned int value)
+{
+    HAL_DAC_SetValue(&dac1,DAC_CHANNEL_1,DAC_ALIGN_12B_R,value);
+    HAL_DAC_Start(&dac1,DAC_CHANNEL_1);
 }
