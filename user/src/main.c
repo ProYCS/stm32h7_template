@@ -83,13 +83,13 @@ int main(void)
         //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
         //HAL_Delay(100);
         //for(long i=0;i<100000;i++);
-
+        /*
         dac_set(512-t);
         delay();
         //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
         dac_set(256);
         delay();
-
+        */
         //for(long i=0;i<100000;i++);
         //HAL_Delay(100);
     }
@@ -97,6 +97,7 @@ int main(void)
 
 int count = 0;
 int p = 0;
+int q = 0;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -109,14 +110,26 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
         if(p == 0){
             count++;
-            if(count > 256)
+            if(count > 256){
                 count = 0;
+                if(q == 0)
+                    q = 1;
+                else
+                    q = 0;
+            }
+
         }
 
         if(p == 0)
+            dac_set(512-count);
+        else
+            dac_set(256);
+
+        if(q == 0)
             HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
         else
             HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
 
     }
 }
+

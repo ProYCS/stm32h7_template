@@ -4,22 +4,19 @@ TIM_HandleTypeDef htim2;
 
 void tim_init(void)
 {
-    TIM_SlaveConfigTypeDef sSlaveConfig = {0};
+    TIM_ClockConfigTypeDef sClockSourceConfig = {0};
     TIM_MasterConfigTypeDef sMasterConfig = {0};
 
     __HAL_RCC_TIM2_CLK_ENABLE();
     htim2.Instance = TIM2;
     htim2.Init.Prescaler = 0;
     htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-    htim2.Init.Period = 10000;
+    htim2.Init.Period = 200000;
     htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-    htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+    htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
     HAL_TIM_Base_Init(&htim2);
-
-    sSlaveConfig.SlaveMode = TIM_SLAVEMODE_EXTERNAL1;
-    sSlaveConfig.InputTrigger = TIM_TS_ITR0;
-    HAL_TIM_SlaveConfigSynchro(&htim2, &sSlaveConfig);
-
+    sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+    HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig);
     sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
     sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
     HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig);
