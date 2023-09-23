@@ -17,5 +17,7 @@ void channel_step(CHANNEL *channel)
 
 void channel_play(CHANNEL *channel,int type,double freq,double time)
 {
-
+    channel->type = type;
+    channel->time = time;
+    channel->run = 1;
 }
