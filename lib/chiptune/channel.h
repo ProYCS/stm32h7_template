@@ -3,6 +3,8 @@
 
 #define CHANNEL_NUM 4
 
+#define SAMPLE_RATE 100000
+
 #define WAVE_SQUARE     1
 #define WAVE_TRAINGLE   2
 
@@ -11,10 +13,14 @@ typedef struct {
     int type;
     double freq;
 
-    unsigned int wave_amp;
+    double wave_amp;
+    double wave;
     double time;
     double time_count;
+    double scale;
+    double scale_count;
     int run;
+
 
     int parameter1;
     int parameter2;
