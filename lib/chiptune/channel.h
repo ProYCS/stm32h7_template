@@ -28,7 +28,12 @@ typedef struct {
     int parameter4;
 } CHANNEL;
 
+extern CHANNEL channel1;
+extern CHANNEL channel2;
+extern CHANNEL channel3;
+extern CHANNEL channel4;
+
 void channel_step(CHANNEL *channel);
-void channel_play(CHANNEL *channel,int type,double freq,double time);
+void channel_play(CHANNEL *channel,int type,double freq,double time,int amp);
 
 #endif

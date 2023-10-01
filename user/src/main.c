@@ -3,6 +3,9 @@
 #include"dac.h"
 #include"tim.h"
 
+#include"chiptune.h"
+#include"channel.h"
+
 void STM32_Clock_Init(unsigned long plln,unsigned long pllm,unsigned long pllp,unsigned long pllq)
 {
     HAL_StatusTypeDef ret=HAL_OK;
@@ -46,7 +49,7 @@ void STM32_Clock_Init(unsigned long plln,unsigned long pllm,unsigned long pllp,u
 
 void delay(void)
 {
-    volatile long i = 10000;
+    volatile long i = 1000000;
     volatile long j;
     while(i--){
         j++;
@@ -78,15 +81,30 @@ int main(void)
     tim_start();
     while(1)
     {
-        t++;
-        if(t>256)t=0;
+        //t++;
+        //if(t>256)
+        //t=0;
+        channel_play(&channel1,WAVE_SQUARE,262,0.2,100);
         //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
-        //HAL_Delay(100);
+        //delay();
+        HAL_Delay(200);
+        channel_play(&channel1,WAVE_SQUARE,277,0.2,100);
+        //delay();
+        HAL_Delay(200);
+        channel_play(&channel1,WAVE_SQUARE,294,0.2,100);
+        //delay();
+        HAL_Delay(200);
+        channel_play(&channel1,WAVE_SQUARE,311,0.2,100);
+        //delay();
+        HAL_Delay(200);
+        //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
+        //delay();
+        //HAL_Delay(1000);
         //for(long i=0;i<100000;i++);
         /*
         dac_set(512-t);
         delay();
-        //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
         dac_set(256);
         delay();
         */
@@ -103,6 +121,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if(htim->Instance == TIM2)
     {
+        chiptune_tick();
+        /*
         if(p == 0)
             p = 1;
         else
@@ -129,6 +149,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
         else
             HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
+        */
 
     }
 }
