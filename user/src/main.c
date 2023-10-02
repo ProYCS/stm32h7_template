@@ -84,17 +84,17 @@ int main(void)
         //t++;
         //if(t>256)
         //t=0;
-        channel_play(&channel1,WAVE_SQUARE,262,0.2,100);
+        channel_play(&channel1,WAVE_SQUARE,262,0.2,100,0.5,0,0,0);
         //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
         //delay();
         HAL_Delay(200);
-        channel_play(&channel1,WAVE_SQUARE,277,0.2,100);
+        channel_play(&channel1,WAVE_SQUARE,262,0.2,100,0.3,0,0,0);
         //delay();
         HAL_Delay(200);
-        channel_play(&channel1,WAVE_SQUARE,294,0.2,100);
+        channel_play(&channel1,WAVE_SQUARE,262,0.2,100,0.2,0,0,0);
         //delay();
         HAL_Delay(200);
-        channel_play(&channel1,WAVE_SQUARE,311,0.2,100);
+        channel_play(&channel1,WAVE_SQUARE,262,0.2,100,0.1,0,0,0);
         //delay();
         HAL_Delay(200);
         //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);

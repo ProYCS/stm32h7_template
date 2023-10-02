@@ -23,27 +23,22 @@ void channel_step(CHANNEL *channel)
                                 channel->run = 0;
                             }
 
-                            if(channel->scale_count > channel->scale / 2)
-                            {
-                                channel->wave = channel->wave_amp;
-                                HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
-                            }
-                            else
-                            {
-                                channel->wave = 0;
-                                HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
-                            }
+                            square_step(channel);
                          }
                          break;
         case WAVE_TRAINGLE:break;
     }
 }
 
-void channel_play(CHANNEL *channel,int type,double freq,double time,int amp)
+void channel_play(CHANNEL *channel,int type,double freq,double time,int amp,double parameter1,double parameter2,double parameter3,double parameter4)
 {
     channel->type = type;
     channel->time = time;
     channel->freq = freq;
+    channel->parameter1 = parameter1;
+    channel->parameter2 = parameter2;
+    channel->parameter3 = parameter3;
+    channel->parameter4 = parameter4;
     channel->scale = (double)1 / channel->freq;
     channel->wave_amp = amp;
     channel->time_count = 0;
