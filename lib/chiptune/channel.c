@@ -10,23 +10,42 @@ void channel_step(CHANNEL *channel)
 {
     switch(channel->type)
     {
-        case WAVE_SQUARE:if(channel->run == 1)
-                         {
-                            channel->scale_count += (double)1 / SAMPLE_RATE;
-                            if(channel->scale_count > channel->scale)
-                            {
-                                channel->scale_count = 0;
-                            }
-                            channel->time_count += (double)1 / SAMPLE_RATE;
-                            if(channel->time_count > channel->time)
-                            {
-                                channel->run = 0;
-                            }
+        case WAVE_SQUARE:
+            if(channel->run == 1)
+            {
+                channel->scale_count += (double)1 / SAMPLE_RATE;
+                if(channel->scale_count > channel->scale)
+                {
+                    channel->scale_count = 0;
+                }
+                channel->time_count += (double)1 / SAMPLE_RATE;
+                if(channel->time_count > channel->time)
+                {
+                    channel->run = 0;
+                    square_finish(channel);
+                }
 
-                            square_step(channel);
-                         }
-                         break;
-        case WAVE_TRAINGLE:break;
+                square_step(channel);
+            }
+            break;
+        case WAVE_TRIANGLE:
+             if(channel->run == 1)
+            {
+                channel->scale_count += (double)1 / SAMPLE_RATE;
+                if(channel->scale_count > channel->scale)
+                {
+                    channel->scale_count = 0;
+                }
+                channel->time_count += (double)1 / SAMPLE_RATE;
+                if(channel->time_count > channel->time)
+                {
+                    channel->run = 0;
+                    triangle_finish(channel);
+                }
+
+                triangle_step(channel);
+            }
+            break;
     }
 }
 
@@ -44,4 +63,14 @@ void channel_play(CHANNEL *channel,int type,double freq,double time,int amp,doub
     channel->time_count = 0;
     channel->scale_count = 0;
     channel->run = 1;
+    switch(type)
+    {
+        case WAVE_SQUARE:
+            square_init(channel);
+            break;
+        case WAVE_TRIANGLE:
+            triangle_init(channel);
+            break;
+    }
+
 }

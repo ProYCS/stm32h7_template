@@ -1,6 +1,9 @@
-#include"channel.h"
 #include"square.h"
 
+void square_init(CHANNEL *channel)
+{
+    channel->wave = 0;
+}
 
 void square_step(CHANNEL *channel)
 {
@@ -12,4 +15,9 @@ void square_step(CHANNEL *channel)
     {
         channel->wave = 0;
     }
+}
+
+void square_finish(CHANNEL *channel)
+{
+    channel->wave = 0;
 }

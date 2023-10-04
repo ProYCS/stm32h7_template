@@ -84,73 +84,58 @@ int main(void)
         //t++;
         //if(t>256)
         //t=0;
-        channel_play(&channel1,WAVE_SQUARE,262,0.2,100,0.5,0,0,0);
-        //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
-        //delay();
-        HAL_Delay(200);
-        channel_play(&channel1,WAVE_SQUARE,262,0.2,100,0.3,0,0,0);
-        //delay();
-        HAL_Delay(200);
-        channel_play(&channel1,WAVE_SQUARE,262,0.2,100,0.2,0,0,0);
-        //delay();
-        HAL_Delay(200);
-        channel_play(&channel1,WAVE_SQUARE,262,0.2,100,0.1,0,0,0);
-        //delay();
-        HAL_Delay(200);
-        //HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
-        //delay();
-        //HAL_Delay(1000);
-        //for(long i=0;i<100000;i++);
-        /*
-        dac_set(512-t);
-        delay();
-        HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
-        dac_set(256);
-        delay();
-        */
-        //for(long i=0;i<100000;i++);
-        //HAL_Delay(100);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.5,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.5,0,0,0);
+        HAL_Delay(120);
+        channel_play(&channel1,WAVE_SQUARE,262,0.15,50,0.5,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.5,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.5,0,0,0);
+        HAL_Delay(150);
+
+
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.3,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.3,0,0,0);
+        HAL_Delay(120);
+        channel_play(&channel1,WAVE_SQUARE,262,0.15,50,0.3,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.3,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.3,0,0,0);
+        HAL_Delay(150);
+
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.1,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.1,0,0,0);
+        HAL_Delay(120);
+        channel_play(&channel1,WAVE_SQUARE,262,0.15,50,0.1,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.1,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.1,0,0,0);
+        HAL_Delay(150);
+
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.3,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.3,0,0,0);
+        HAL_Delay(120);
+        channel_play(&channel1,WAVE_SQUARE,262,0.15,50,0.3,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.3,0,0,0);
+        HAL_Delay(50);
+        channel_play(&channel1,WAVE_SQUARE,262,0.1,100,0.3,0,0,0);
+        HAL_Delay(150);
     }
 }
-
-int count = 0;
-int p = 0;
-int q = 0;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if(htim->Instance == TIM2)
     {
         chiptune_tick();
-        /*
-        if(p == 0)
-            p = 1;
-        else
-            p = 0;
-
-        if(p == 0){
-            count++;
-            if(count > 256){
-                count = 0;
-                if(q == 0)
-                    q = 1;
-                else
-                    q = 0;
-            }
-
-        }
-
-        if(p == 0)
-            dac_set(512-count);
-        else
-            dac_set(256);
-
-        if(q == 0)
-            HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_SET);
-        else
-            HAL_GPIO_WritePin(GPIOE,GPIO_PIN_3,GPIO_PIN_RESET);
-        */
-
     }
 }
 

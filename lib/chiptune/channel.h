@@ -6,7 +6,7 @@
 #define SAMPLE_RATE 100000
 
 #define WAVE_SQUARE     1
-#define WAVE_TRAINGLE   2
+#define WAVE_TRIANGLE   2
 
 
 typedef struct {
