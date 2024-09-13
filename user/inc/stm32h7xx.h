@@ -41,7 +41,6 @@
  extern "C" {
 #endif /* __cplusplus */
 
-#include<stdint.h>
 /** @addtogroup Library_configuration_section
   * @{
   */

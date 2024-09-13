@@ -194,7 +194,7 @@
   * @brief Include module's header file 
   */
 
-#include "stm32h750xx.h"
+#include "stm32h723xx.h"
 
 #ifdef HAL_RCC_MODULE_ENABLED
   #include "stm32h7xx_hal_rcc.h"

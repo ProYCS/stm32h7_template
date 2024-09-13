@@ -4,7 +4,7 @@ TARGET=startup
 
 include ../config.mk
 
-CFLAGS =  -W -Wall -g -mcpu=cortex-m7 -mthumb -D $(DEVICE) $(INC_FLAGS) -O1 -std=gnu11
+CFLAGS =  -W -Wall -g -mcpu=cortex-m7 -mthumb -D $(TARGET_DEVICE) $(INC_FLAGS) -O1 -std=gnu11
 #ASM_SRC=$(shell find ./ -name '*.s')
 ASM_OBJ=$(ASM_SRC:%.s=%.o)
 
